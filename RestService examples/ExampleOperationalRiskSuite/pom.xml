@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	  
+  <parent>
+	<groupId>it.sella.buildplatform</groupId>
+	<artifactId>build-master-parent</artifactId>
+	<version>2.0.0</version>
+  </parent>
+  
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <weblogic.version>10.3.3.0</weblogic.version>
+    <java.version>1.7</java.version>
+    <operationalrisksuite.version>0.0.028</operationalrisksuite.version>
+  </properties>
+  
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>it.sella.externals.operationalrisksuite</groupId>
+  <artifactId>operationalrisksuite</artifactId>
+  <name>operationalrisksuite</name>
+  <packaging>pom</packaging>  
+  <version>${operationalrisksuite.version}</version>
+  
+  <build>
+    <plugins>
+	  <plugin>
+		<groupId>org.apache.maven.plugins</groupId>
+		<artifactId>maven-compiler-plugin</artifactId>
+		<version>3.1</version>
+		<configuration>
+		  <source>1.7</source>
+		  <target>1.7</target>
+		  <encoding>${project.build.sourceEncoding}</encoding>
+		</configuration>
+	  </plugin>
+	  <plugin>
+		<groupId>org.apache.maven.plugins</groupId>
+		<artifactId>maven-surefire-plugin</artifactId>
+		<version>2.15</version>
+		<configuration>
+		  <argLine>-Dfile.encoding=UTF-8</argLine>
+		</configuration>
+	  </plugin>
+	  <plugin>
+		<groupId>org.codehaus.mojo</groupId>
+		<artifactId>weblogic-maven-plugin</artifactId>
+		<dependencies>
+		  <dependency>
+			<groupId>weblogic</groupId>
+			<artifactId>weblogic-plugin-dependencies</artifactId>
+			<version>${weblogic.version}</version>
+			<type>pom</type>
+		  </dependency>
+		</dependencies>
+	  </plugin>
+	  <plugin>
+		<groupId>org.apache.maven.plugins</groupId>
+		<artifactId>maven-surefire-plugin</artifactId>
+		<configuration>
+		  <argLine>-javaagent:"${settings.localRepository}"/mockit/jmockit/0.994/jmockit-0.994.jar</argLine>
+		</configuration>
+	  </plugin>			
+ 	</plugins>
+  </build>
+     
+  <modules>              
+    <module>operationalrisksuite-interfaces</module>
+    <module>operationalrisksuite-core</module>
+    <module>operationalrisksuite-controller</module>
+    <module>operationalrisksuite-web</module>    
+    <module>operationalrisksuite-app</module>
+  </modules>
+  
+</project>
